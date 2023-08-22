@@ -36,12 +36,14 @@ login_manager.login_view = 'login'
 # 登录函数
 @login_manager.user_loader
 def load_user(user_id):  # 创建用户加载回调函数，接受用户 ID 作为参数
+    from flaskweb.models import User
     user = User.query.get(int(user_id))  # 用 ID 作为 User 模型的主键查询对应的用户
     return user  # 返回用户对象
 
 # 模板上下文处理函数
 @app.context_processor
 def inject_user():  # 函数名可以随意修改
+    from flaskweb.models import User
     return dict(user=current_user)
 
 from flaskweb import views, errors, commands

@@ -15,3 +15,11 @@ class User(db.Model, UserMixin):
 
     def validate_password(self, password):  # 用于验证密码的方法，接受密码作为参数
         return check_password_hash(self.password_hash, password)  # 返回布尔值
+
+# 创建数据库
+db.create_all()
+# 添加管理员账户
+user = User(username='admin')
+user.set_password('admin123')
+db.session.add(user)
+db.session.commit()
